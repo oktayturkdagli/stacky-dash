@@ -1,6 +1,4 @@
 using UnityEngine;
-using Lean.Touch;
-using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,9 +32,38 @@ public class GameManager : MonoBehaviour
         
     }
     
-
     void LateStart()
     {
+        
+    }
+    
+    public void OnSwipe(Vector2 screenDelta)
+    {
+        float x = screenDelta.x;
+        float y = screenDelta.y;
+        
+        if (Mathf.Abs(x) > Mathf.Abs(y))
+        {
+            // Left or Right
+            if (x < 0)
+                EventManager.current.OnSwipe("Left");
+            else
+            {
+                EventManager.current.OnSwipe("Right");
+            }
+        }
+        else
+        {
+            //Up or Down
+            if (y < 0)
+            {
+                EventManager.current.OnSwipe("Down");
+            }
+            else
+            {
+                EventManager.current.OnSwipe("Up");
+            }
+        }
         
     }
 

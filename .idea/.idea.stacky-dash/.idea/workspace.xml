@@ -2,10 +2,77 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41af71eb-863e-4f40-ba4b-2eb502c28452" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.stacky-dash/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.stacky-dash/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.stacky-dash/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.stacky-dash/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Object Specific Materials/Stack.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Materials/Object Specific Materials/Stack.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Smooth Cube.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Smooth Cube.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Stack.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Stack.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/StackController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/StackController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.stacky-dash/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.stacky-dash/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/StickmanAnimator.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/StickmanAnimator.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Editor/CelCustomEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Editor/CelCustomEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Editor/PresetDataConainer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Editor/PresetDataConainer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Editor/PresetHelper.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Editor/PresetHelper.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Example.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Example/Example Scene.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Example/Example Scene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Example/Example SceneSettings.lighting" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Example/Example SceneSettings.lighting.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Example/ExplMat1.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Example/ExplMat1.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Example/ExplMat2.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Example/ExplMat2.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Example/ExplMat3.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Example/ExplMat3.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/GettingStarted.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/GettingStarted.pdf.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/!Default.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/!Default.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Earthy Light.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Earthy Light.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Electric Blue.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Electric Blue.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Glacier.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Glacier.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Inverted.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Inverted.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Noir Purple.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Noir Purple.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Solid Gold.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Solid Gold.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Subtle Breeze.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Subtle Breeze.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Summer Evening.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Presets/Summer Evening.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Shaders.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Shaders/CelNoOutline.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Shaders/CelNoOutline.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Shaders/CelOutline.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Shaders/CelOutline.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Shaders/CelSilhouette.shader" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlexibleCelShader/Shaders/CelSilhouette.shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cube.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cube.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Ground.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Ground.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Stickman.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Stickman.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game Scene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,12 +83,16 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2AyVJo33vqaCk9Jl0lhWBw0Mkwm" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Discover.Launch.Via.Unity": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -70,6 +141,7 @@
       <option name="presentableId" value="Default" />
       <updated>1655981744768</updated>
       <workItem from="1655981752908" duration="731000" />
+      <workItem from="1656002542925" duration="8483000" />
     </task>
     <servers />
   </component>
@@ -88,6 +160,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
 </project>

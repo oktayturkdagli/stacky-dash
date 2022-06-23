@@ -15,6 +15,7 @@ public class EventManager : MonoBehaviour
     public event Action onFinishGame;
     public event Action onWinGame;
     public event Action onLoseGame;
+    public event Action<string> onSwipe;
     
     //Events cannot be triggered directly from another class so they are triggered via functions
     public void OnStartGame()
@@ -36,5 +37,11 @@ public class EventManager : MonoBehaviour
     {
         onLoseGame?.Invoke();
     }
+    
+    public void OnSwipe(string direction)
+    {
+        onSwipe?.Invoke(direction);
+    }
+    
 }
 
