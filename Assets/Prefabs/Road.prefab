@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 169697379317388612}
   - component: {fileID: 7431759360572777190}
   m_Layer: 0
-  m_Name: WayRenderer
+  m_Name: RoadRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2530696913510569316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9144050774880937858}
@@ -93,9 +93,10 @@ GameObject:
   m_Component:
   - component: {fileID: 9144050774880937858}
   - component: {fileID: 6513772645663284293}
+  - component: {fileID: 6683583723557571639}
   m_Layer: 0
-  m_Name: Way
-  m_TagString: Untagged
+  m_Name: Road
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 7831083466870345484}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.2, z: 1}
+  m_LocalScale: {x: 1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1305791027200320251}
@@ -128,3 +129,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18db463f040824e349db9db8d31f94ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &6683583723557571639
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7831083466870345484}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

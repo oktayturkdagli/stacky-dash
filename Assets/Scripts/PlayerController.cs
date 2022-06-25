@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using DG.Tweening;
 
@@ -22,10 +21,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (canMove)
-        {
-            transform.Translate(directionVector * speed * Time.deltaTime, Space.World);
-        }
+        // if (canMove)
+        // {
+        //     transform.Translate(directionVector * speed * Time.deltaTime, Space.World);
+        // }
     }
 
     void OnSwipe(string direction)
@@ -51,9 +50,37 @@ public class PlayerController : MonoBehaviour
     
     void HandleMovement(Vector3 directionVector)
     {
+        LookRoad(directionVector);
         canMove = true;
     }
+    
+    void LookRoad(Vector3 directionVector)
+    {
+        //Player on the ground?
+        Vector3 origin = transform.position + Vector3.up + directionVector;
+        Vector3 direction = -transform.up;
+        bool isThereRoad = false;
+        RaycastHit hit;
+        
+        Debug.DrawRay(origin, direction * 500, Color.red, 3f);
+        if (Physics.Raycast(origin, direction, out hit,500))
+        {
+            GameObject obj = hit.transform.gameObject;
+            if (obj.tag.Equals("Road") || obj.tag.Equals("Stack") || obj.tag.Equals("Gate"))
+            {
+                isThereRoad = true;
+            }
+        }
+        else
+        {
+            isThereRoad = false;
+        }
+        
+        Debug.Log(isThereRoad);
+            
 
+    }
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag.Equals("Border"))

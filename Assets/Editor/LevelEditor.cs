@@ -1,17 +1,16 @@
 #if UNITY_EDITOR
-using System;
 using UnityEngine;
 using UnityEditor;
 using Object = UnityEngine.Object;
 
-public class ObjectCreator : EditorWindow
+public class LevelEditor : EditorWindow
 {
     private int count = 1;
     private Vector3 startPosition = Vector3.zero, incrementVector = Vector3.one;
     private Vector3 defaultStartPosition = Vector3.zero;
     private Vector3 defaultIncrementVector = Vector3.one;
-    private Object baseParent, baseObject, baseWayParent, baseWayObject;
-    private GameObject parent, wayParent;
+    private Object baseParent, baseObject, baseRoadParent, baseRoadObject;
+    private GameObject parent, roadParent;
     private bool isActiveAxisX = true, isActiveAxisY = false, isActiveAxisZ = false;
     private bool isInvertX = false, isInvertY = false, isInvertZ = false;
 
@@ -19,7 +18,7 @@ public class ObjectCreator : EditorWindow
     [MenuItem("Window/Level Editor")]
     public static void Init()
     {
-        EditorWindow editorWindow = GetWindow(typeof(ObjectCreator), false, "Level Editor", true);
+        EditorWindow editorWindow = GetWindow(typeof(LevelEditor), false, "Level Editor", true);
         editorWindow.minSize = new Vector2(350, 500);
         editorWindow.maxSize = new Vector2(350, 500);
     }
@@ -27,7 +26,7 @@ public class ObjectCreator : EditorWindow
     void OnGUI()
     {
         SetParent();
-        SetWayParent();
+        SetRoadParent();
         DrawMyEditor();
         HandleButtons();
     }
@@ -47,13 +46,13 @@ public class ObjectCreator : EditorWindow
         GUILayout.EndHorizontal();
         
         GUILayout.BeginHorizontal();
-        GUILayout.Label("Way Object", EditorStyles.boldLabel, GUILayout.Width(120));
-        baseWayObject = EditorGUILayout.ObjectField(baseWayObject, typeof(GameObject), true); GUILayout.FlexibleSpace();
+        GUILayout.Label("Road Object", EditorStyles.boldLabel, GUILayout.Width(120));
+        baseRoadObject = EditorGUILayout.ObjectField(baseRoadObject, typeof(GameObject), true); GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         
         GUILayout.BeginHorizontal();
-        GUILayout.Label("Way Parent", EditorStyles.boldLabel, GUILayout.Width(120));
-        baseWayParent = EditorGUILayout.ObjectField(baseWayParent, typeof(GameObject), true); GUILayout.FlexibleSpace();
+        GUILayout.Label("Road Parent", EditorStyles.boldLabel, GUILayout.Width(120));
+        baseRoadParent = EditorGUILayout.ObjectField(baseRoadParent, typeof(GameObject), true); GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
@@ -139,13 +138,13 @@ public class ObjectCreator : EditorWindow
         if (buttonRemove)
         {
             Remove();
-            RemoveWay();
+            RemoveRoad();
         }
         
         if (buttonRemoveLastest)
         {
             RemoveLastest();
-            RemoveWayLastest();
+            RemoveRoadLastest();
         }
         
         if (buttonProduce)
@@ -153,7 +152,7 @@ public class ObjectCreator : EditorWindow
             for (int i = 0; i < count; i++)
             {
                 CreateObject();
-                CreateWayObject();
+                CreateRoadObject();
             }
         }
 
@@ -164,7 +163,7 @@ public class ObjectCreator : EditorWindow
             {
                 isActiveAxisZ = true;
                 CreateObject();
-                CreateWayObject();
+                CreateRoadObject();
             }
         }
         else if (buttonDown)
@@ -175,7 +174,7 @@ public class ObjectCreator : EditorWindow
                 isActiveAxisZ = true;
                 isInvertZ = true;
                 CreateObject();
-                CreateWayObject();
+                CreateRoadObject();
             }
         }
         else if (buttonLeft)
@@ -186,7 +185,7 @@ public class ObjectCreator : EditorWindow
                 isActiveAxisX = true;
                 isInvertX = true;
                 CreateObject();
-                CreateWayObject();
+                CreateRoadObject();
             }
         }
         else if (buttonRight)
@@ -196,7 +195,7 @@ public class ObjectCreator : EditorWindow
             {
                 isActiveAxisX = true;
                 CreateObject();
-                CreateWayObject();
+                CreateRoadObject();
             }
         }
     }
@@ -228,13 +227,13 @@ public class ObjectCreator : EditorWindow
             startPosition = defaultStartPosition;
     }
     
-    void RemoveWay()
+    void RemoveRoad()
     {
-        int childCount = wayParent.transform.childCount;
+        int childCount = roadParent.transform.childCount;
         if (childCount < 1)
             return;
         
-        DestroyImmediate(wayParent.transform.GetChild(wayParent.transform.childCount - 1).gameObject);
+        DestroyImmediate(roadParent.transform.GetChild(roadParent.transform.childCount - 1).gameObject);
     }
     
     void RemoveLastest()
@@ -256,15 +255,15 @@ public class ObjectCreator : EditorWindow
             startPosition = defaultStartPosition;
     }
     
-    void RemoveWayLastest()
+    void RemoveRoadLastest()
     {
-        int childCount = wayParent.transform.childCount;
+        int childCount = roadParent.transform.childCount;
         if (count > childCount)
             count = childCount;
         
         for (int i = 0; i < count; i++)
         {
-            DestroyImmediate(wayParent.transform.GetChild(wayParent.transform.childCount - 1).gameObject);
+            DestroyImmediate(roadParent.transform.GetChild(roadParent.transform.childCount - 1).gameObject);
         }
     }
     
@@ -288,14 +287,14 @@ public class ObjectCreator : EditorWindow
         myGameObject.transform.localPosition = startPosition;
     }
     
-    void CreateWayObject()
+    void CreateRoadObject()
     {
-        GameObject myGameObject = baseWayObject as GameObject; // did add from Editor?
+        GameObject myGameObject = baseRoadObject as GameObject; // did add from Editor?
         if (!myGameObject)
             return;
         myGameObject = PrefabUtility.InstantiatePrefab(myGameObject) as GameObject;
         
-        myGameObject.transform.SetParent(wayParent.transform);
+        myGameObject.transform.SetParent(roadParent.transform);
         myGameObject.transform.localPosition = startPosition;
     }
     
@@ -333,18 +332,18 @@ public class ObjectCreator : EditorWindow
         baseParent = myParentGameObject;
     }
     
-    void SetWayParent()
+    void SetRoadParent()
     {
-        if (wayParent)
+        if (roadParent)
             return;
 
-        GameObject myParentGameObject = baseWayParent as GameObject; // did add from Editor?
+        GameObject myParentGameObject = baseRoadParent as GameObject; // did add from Editor?
 
         if (!myParentGameObject)
-            myParentGameObject = new GameObject("Ways Parent");
+            myParentGameObject = new GameObject("Roads Parent");
 
-        wayParent = myParentGameObject;
-        baseWayParent = myParentGameObject;
+        roadParent = myParentGameObject;
+        baseRoadParent = myParentGameObject;
     }
     
     void ResetInvertsAndActives()
@@ -359,4 +358,5 @@ public class ObjectCreator : EditorWindow
     
     
 }
+
 #endif
