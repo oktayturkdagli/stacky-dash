@@ -216,6 +216,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Jump", false);
                 Transform pole = other.transform;
                 Transform stack = playerStacks.GetChild(playerStacks.childCount - 1);
+                stack.gameObject.tag = "Road";
+                stack.gameObject.GetComponent<BoxCollider>().enabled = true;
                 pole.gameObject.GetComponent<BoxCollider>().enabled = false;
                 stack.parent = null;
                 stack.localEulerAngles = Vector3.zero;
