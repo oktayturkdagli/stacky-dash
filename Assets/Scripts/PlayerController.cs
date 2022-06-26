@@ -123,6 +123,63 @@ public class PlayerController : MonoBehaviour
 
         return isThereRoad;
     }
+    
+    void Redirect(string whereDidItComeFrom, string routerName)
+    {
+        if (whereDidItComeFrom.Equals("Left")) 
+        {
+            if (routerName.Equals("LDDL")) // Left to Down, Down to Left
+            {
+                directionVector = Vector3.back;
+            }
+            else if (routerName.Equals("LUUL")) // Left to Up, Up to Left
+            {
+                directionVector = Vector3.forward;
+            }
+        } else if (whereDidItComeFrom.Equals("Right")) 
+        {
+            if (routerName.Equals("RDDR")) // Right to Down, Down to Right
+            {
+                directionVector = Vector3.back;
+            }
+            else if (routerName.Equals("RUUR")) // Right to Up, Up to Right
+            {
+                directionVector = Vector3.forward;
+            }
+        }
+        else if (whereDidItComeFrom.Equals("Down")) 
+        {
+            if (routerName.Equals("RDDR")) // Right to Down, Down to Right
+            {
+                directionVector = Vector3.right;
+            }
+            else if (routerName.Equals("LDDL")) // Left to Down, Down to Left
+            {
+                directionVector = Vector3.left;
+            }
+        }
+        else if (whereDidItComeFrom.Equals("Up")) 
+        {
+            if (routerName.Equals("RUUR")) // Right to Up, Up to Right
+            {
+                directionVector = Vector3.right;
+            }
+            else if (routerName.Equals("LUUL")) // Left to Up, Up to Left
+            {
+                directionVector = Vector3.left;
+            }
+        }
+        
+        DOTween.Kill("Movement");
+        Vector3 stopVector = new Vector3((float)Math.Round(transform.position.x), transform.position.y, (float)Math.Round(transform.position.z));
+        transform.DOMove(stopVector, 0.1f).OnComplete(()=>
+        {
+            canMove = true;
+            HandleMovement();
+        });
+        
+        
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -147,6 +204,54 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jump", false);
             StopMovement();
         }
+        
+        if (other.gameObject.tag.Equals("Pole"))
+        {
+            if (playerStacks.childCount > 1)
+            {
+                currentAltitude -= altitudeMultiplier;
+                playerStacksCounter -= 1;
+                DOTween.Kill("Rising");
+                transform.DOMoveY(currentAltitude, 0.2f).SetRelative(false).SetId("Rising");
+                animator.SetBool("Jump", false);
+                Transform pole = other.transform;
+                Transform stack = playerStacks.GetChild(playerStacks.childCount - 1);
+                pole.gameObject.GetComponent<BoxCollider>().enabled = false;
+                stack.parent = null;
+                stack.localEulerAngles = Vector3.zero;
+                stack.transform.position = new Vector3(pole.position.x, pole.position.y + 0.5f, pole.position.z);
+            }
+            else
+            {
+                StopMovement();
+            }
+        }
+        
+        if (other.gameObject.tag.Equals("Router"))
+        {
+            animator.SetBool("Jump", false);
+            string routerName = other.gameObject.name;
+            string whereDidItComeFrom = "Left";
+            if (directionVector == Vector3.right)
+            {
+                whereDidItComeFrom = "Left";
+            }
+            else if (directionVector == Vector3.left)
+            {
+                whereDidItComeFrom = "Right";
+            }
+            else if (directionVector == Vector3.back)
+            {
+                whereDidItComeFrom = "Up";
+            }
+            else if (directionVector == Vector3.forward)
+            {
+                whereDidItComeFrom = "Down";
+            }
+            
+            Redirect(whereDidItComeFrom, routerName);
+        }
+        
     }
 
     void OnDestroy()

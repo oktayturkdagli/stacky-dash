@@ -8,6 +8,8 @@ TagManager:
   - Stack
   - Gate
   - Road
+  - Pole
+  - Router
   layers:
   - Default
   - TransparentFX
