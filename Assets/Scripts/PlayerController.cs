@@ -60,9 +60,9 @@ public class PlayerController : MonoBehaviour
         {
             canMove = false;
             if (directionVector.x != 0)
-                transform.DOMoveX(directionVector.x * 100, 100/speed).SetId("Movement").SetUpdate(UpdateType.Fixed);
+                transform.DOMoveX(directionVector.x * 100, 100/speed).SetId("Movement");
             else if (directionVector.z != 0)
-                transform.DOMoveZ(directionVector.z * 100, 100/speed).SetId("Movement").SetUpdate(UpdateType.Fixed);
+                transform.DOMoveZ(directionVector.z * 100, 100/speed).SetId("Movement");
         }
     }
     
