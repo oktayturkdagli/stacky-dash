@@ -7,10 +7,9 @@ public class LevelEditor : EditorWindow
 {
     private int count = 1;
     private Vector3 startPosition = Vector3.zero, incrementVector = Vector3.one;
-    private Vector3 defaultStartPosition = Vector3.zero;
-    private Vector3 defaultIncrementVector = Vector3.one;
-    private Object baseParent, baseObject, baseRoadParent, baseRoadObject;
-    private GameObject parent, roadParent;
+    private Vector3 defaultStartPosition = Vector3.zero, defaultIncrementVector = Vector3.one;
+    private Object baseStackParent, baseStack, baseRoadParent, baseRoad;
+    private GameObject stackParent, roadParent;
     private bool isActiveAxisX = true, isActiveAxisY = false, isActiveAxisZ = false;
     private bool isInvertX = false, isInvertY = false, isInvertZ = false;
 
@@ -37,17 +36,17 @@ public class LevelEditor : EditorWindow
 
         GUILayout.BeginHorizontal();
         GUILayout.Label("Object", EditorStyles.boldLabel, GUILayout.Width(120));
-        baseObject = EditorGUILayout.ObjectField(baseObject, typeof(GameObject), true); GUILayout.FlexibleSpace();
+        baseStack = EditorGUILayout.ObjectField(baseStack, typeof(GameObject), true); GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         
         GUILayout.BeginHorizontal();
         GUILayout.Label("Parent", EditorStyles.boldLabel, GUILayout.Width(120));
-        baseParent = EditorGUILayout.ObjectField(baseParent, typeof(GameObject), true); GUILayout.FlexibleSpace();
+        baseStackParent = EditorGUILayout.ObjectField(baseStackParent, typeof(GameObject), true); GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         
         GUILayout.BeginHorizontal();
         GUILayout.Label("Road Object", EditorStyles.boldLabel, GUILayout.Width(120));
-        baseRoadObject = EditorGUILayout.ObjectField(baseRoadObject, typeof(GameObject), true); GUILayout.FlexibleSpace();
+        baseRoad = EditorGUILayout.ObjectField(baseRoad, typeof(GameObject), true); GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         
         GUILayout.BeginHorizontal();
@@ -104,7 +103,6 @@ public class LevelEditor : EditorWindow
         GUILayout.BeginHorizontal(GUILayout.Width(330)); GUILayout.FlexibleSpace();
         bool buttonReset = GUILayout.Button(" Reset ");
         bool buttonRemove = GUILayout.Button(" Remove ");
-        bool buttonRemoveLastest = GUILayout.Button(" Remove Lastest ");
         bool buttonProduce = GUILayout.Button(" Produce ");
         GUILayout.EndHorizontal();
         
@@ -140,13 +138,7 @@ public class LevelEditor : EditorWindow
             Remove();
             RemoveRoad();
         }
-        
-        if (buttonRemoveLastest)
-        {
-            RemoveLastest();
-            RemoveRoadLastest();
-        }
-        
+
         if (buttonProduce)
         {
             for (int i = 0; i < count; i++)
@@ -214,15 +206,15 @@ public class LevelEditor : EditorWindow
 
     void Remove()
     {
-        int childCount = parent.transform.childCount;
+        int childCount = stackParent.transform.childCount;
         if (childCount < 1)
             return;
         
-        DestroyImmediate(parent.transform.GetChild(parent.transform.childCount - 1).gameObject);
+        DestroyImmediate(stackParent.transform.GetChild(stackParent.transform.childCount - 1).gameObject);
         
         //Decrease Position
-        if (parent.transform.childCount > 0)
-            startPosition = parent.transform.GetChild(parent.transform.childCount - 1).localPosition;
+        if (stackParent.transform.childCount > 0)
+            startPosition = stackParent.transform.GetChild(stackParent.transform.childCount - 1).localPosition;
         else
             startPosition = defaultStartPosition;
     }
@@ -235,42 +227,11 @@ public class LevelEditor : EditorWindow
         
         DestroyImmediate(roadParent.transform.GetChild(roadParent.transform.childCount - 1).gameObject);
     }
-    
-    void RemoveLastest()
-    {
-        int childCount = parent.transform.childCount;
-        if (count > childCount)
-            count = childCount;
-        
-        for (int i = 0; i < count; i++)
-        {
-            Transform lastChild = parent.transform.GetChild(parent.transform.childCount - 1);
-            DestroyImmediate(lastChild.gameObject);
-        }
-        
-        //Decrease Position
-        if (parent.transform.childCount > 0)
-            startPosition = parent.transform.GetChild(parent.transform.childCount - 1).localPosition;
-        else
-            startPosition = defaultStartPosition;
-    }
-    
-    void RemoveRoadLastest()
-    {
-        int childCount = roadParent.transform.childCount;
-        if (count > childCount)
-            count = childCount;
-        
-        for (int i = 0; i < count; i++)
-        {
-            DestroyImmediate(roadParent.transform.GetChild(roadParent.transform.childCount - 1).gameObject);
-        }
-    }
-    
+
     void CreateObject()
     {
         
-        GameObject myGameObject = baseObject as GameObject; // did add from Editor?
+        GameObject myGameObject = baseStack as GameObject; // did add from Editor?
         myGameObject = PrefabUtility.InstantiatePrefab(myGameObject) as GameObject;
         
         if (!myGameObject)
@@ -283,13 +244,13 @@ public class LevelEditor : EditorWindow
             return;
         
         IncreasePosition();
-        myGameObject.transform.SetParent(parent.transform);
+        myGameObject.transform.SetParent(stackParent.transform);
         myGameObject.transform.localPosition = startPosition;
     }
     
     void CreateRoadObject()
     {
-        GameObject myGameObject = baseRoadObject as GameObject; // did add from Editor?
+        GameObject myGameObject = baseRoad as GameObject; // did add from Editor?
         if (!myGameObject)
             return;
         myGameObject = PrefabUtility.InstantiatePrefab(myGameObject) as GameObject;
@@ -320,24 +281,37 @@ public class LevelEditor : EditorWindow
 
     void SetParent()
     {
-        if (parent)
+        if (stackParent)
             return;
+        
+        GameObject myParentGameObject = GameObject.Find("Stacks Parent");
 
-        GameObject myParentGameObject = baseParent as GameObject; // did add from Editor?
+        if (!myParentGameObject)
+            myParentGameObject = baseStackParent as GameObject; // did add from Editor?
 
         if (!myParentGameObject)
             myParentGameObject = new GameObject("Stacks Parent");
 
-        parent = myParentGameObject;
-        baseParent = myParentGameObject;
+        stackParent = myParentGameObject;
+        baseStackParent = myParentGameObject;
+        
+        //Set Position
+        if (stackParent.transform.childCount > 0)
+            startPosition = stackParent.transform.GetChild(stackParent.transform.childCount - 1).localPosition;
+        else
+            startPosition = defaultStartPosition;
     }
     
     void SetRoadParent()
     {
         if (roadParent)
             return;
+        
+        GameObject myParentGameObject = GameObject.Find("Roads Parent");
+        
+        if (!myParentGameObject)
+            myParentGameObject = baseRoadParent as GameObject; // did add from Editor?
 
-        GameObject myParentGameObject = baseRoadParent as GameObject; // did add from Editor?
 
         if (!myParentGameObject)
             myParentGameObject = new GameObject("Roads Parent");

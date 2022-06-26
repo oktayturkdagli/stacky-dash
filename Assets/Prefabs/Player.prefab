@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbfc8925489304429965bfa5c7a20ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 7
   playerStacks: {fileID: 4591248457803702837}
   altitudeMultiplier: 0.25
 --- !u!1001 &7514347232269994323

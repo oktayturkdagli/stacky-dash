@@ -3,13 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="41af71eb-863e-4f40-ba4b-2eb502c28452" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.stacky-dash/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.stacky-dash/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Jump.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Jump.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/StickmanAnimator.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/StickmanAnimator.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/LevelEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/LevelEditor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Gate.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Gate.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Stack.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Stack.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,6 +83,8 @@
       <workItem from="1656150569920" duration="4154000" />
       <workItem from="1656156347290" duration="1825000" />
       <workItem from="1656161314722" duration="11261000" />
+      <workItem from="1656192201478" duration="3000" />
+      <workItem from="1656229286307" duration="1086000" />
     </task>
     <servers />
   </component>
