@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System;
 using UnityEngine;
 using UnityEditor;
 using Object = UnityEngine.Object;
@@ -22,12 +23,30 @@ public class LevelEditor : EditorWindow
         editorWindow.maxSize = new Vector2(350, 500);
     }
 
+    private void OnEnable()
+    {
+        SetStackParent();
+        SetRoadParent();
+        GameObject loadStack = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Stack.prefab", typeof(GameObject)) as GameObject;
+        if (loadStack)
+            baseStack = loadStack;
+        GameObject loadRoad = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Road.prefab", typeof(GameObject)) as GameObject;
+        if (loadRoad)
+            baseRoad = loadRoad;
+    }
+
+    private void OnValidate()
+    {
+        SetStackParent();
+        SetRoadParent();
+    }
+
     void OnGUI()
     {
-        SetParent();
-        SetRoadParent();
+        SetLastPosition();
         DrawMyEditor();
         HandleButtons();
+        HandleArrows();
     }
 
     void DrawMyEditor()
@@ -35,17 +54,17 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.Space(); GUILayout.Label("Create Object", EditorStyles.boldLabel); EditorGUILayout.Space();
 
         GUILayout.BeginHorizontal();
-        GUILayout.Label("Object", EditorStyles.boldLabel, GUILayout.Width(120));
+        GUILayout.Label("Stack", EditorStyles.boldLabel, GUILayout.Width(120));
         baseStack = EditorGUILayout.ObjectField(baseStack, typeof(GameObject), true); GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         
         GUILayout.BeginHorizontal();
-        GUILayout.Label("Parent", EditorStyles.boldLabel, GUILayout.Width(120));
+        GUILayout.Label("Stack Parent", EditorStyles.boldLabel, GUILayout.Width(120));
         baseStackParent = EditorGUILayout.ObjectField(baseStackParent, typeof(GameObject), true); GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         
         GUILayout.BeginHorizontal();
-        GUILayout.Label("Road Object", EditorStyles.boldLabel, GUILayout.Width(120));
+        GUILayout.Label("Road", EditorStyles.boldLabel, GUILayout.Width(120));
         baseRoad = EditorGUILayout.ObjectField(baseRoad, typeof(GameObject), true); GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         
@@ -101,18 +120,29 @@ public class LevelEditor : EditorWindow
         //Build Button
         EditorGUILayout.Space(); EditorGUILayout.Space();
         GUILayout.BeginHorizontal(GUILayout.Width(330)); GUILayout.FlexibleSpace();
-        bool buttonReset = GUILayout.Button(" Reset ");
         bool buttonRemove = GUILayout.Button(" Remove ");
-        bool buttonProduce = GUILayout.Button(" Produce ");
         GUILayout.EndHorizontal();
-        
-        EditorGUILayout.Space(50);
+
+        if (buttonRemove)
+        {
+            Remove();
+        }
+    }
+    
+    void HandleArrows()
+    {
+        EditorGUILayout.Space(20);
+        EditorGUILayout.HelpBox("  You can see the numerical parts from above.  ", MessageType.Info);
+        EditorGUILayout.Space(20);
         GUILayout.BeginHorizontal(GUILayout.Width(330)); 
+        
+        GUILayout.BeginHorizontal(GUILayout.Width(165)); 
         GUILayout.FlexibleSpace();
         GUILayout.BeginVertical(); 
         GUILayout.BeginHorizontal();  GUILayout.FlexibleSpace(); 
-        GUILayout.Label("Use Arrows", EditorStyles.boldLabel);
+        GUILayout.Label("Add Stack with Road", EditorStyles.boldLabel);
         GUILayout.FlexibleSpace(); GUILayout.EndHorizontal();
+        EditorGUILayout.Space(10);
         GUILayout.BeginHorizontal();  GUILayout.FlexibleSpace(); 
         bool buttonUp = GUILayout.Button(" ^ ", GUILayout.Width(30)); 
         GUILayout.FlexibleSpace(); GUILayout.EndHorizontal();
@@ -128,80 +158,88 @@ public class LevelEditor : EditorWindow
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         
-        if (buttonReset)
-        {
-            Reset();
-        }
+        GUILayout.BeginHorizontal(GUILayout.Width(165)); 
+        GUILayout.FlexibleSpace();
+        GUILayout.BeginVertical(); 
+        GUILayout.BeginHorizontal();  GUILayout.FlexibleSpace(); 
+        GUILayout.Label("Add Empty", EditorStyles.boldLabel);
+        GUILayout.FlexibleSpace(); GUILayout.EndHorizontal();
+        EditorGUILayout.Space(10);
+        GUILayout.BeginHorizontal();  GUILayout.FlexibleSpace(); 
+        bool buttonUpEmpty = GUILayout.Button(" ^ ", GUILayout.Width(30)); 
+        GUILayout.FlexibleSpace(); GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal(); GUILayout.FlexibleSpace();
+        bool buttonLeftEmpty = GUILayout.Button(" < ", GUILayout.Width(30));
+        EditorGUILayout.Space(20);
+        bool buttonRightEmpty = GUILayout.Button(" > ", GUILayout.Width(30));
+        GUILayout.FlexibleSpace(); GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();  GUILayout.FlexibleSpace(); 
+        bool buttonDownEmpty = GUILayout.Button(" v ", GUILayout.Width(30));
+        GUILayout.FlexibleSpace(); GUILayout.EndHorizontal();
+        GUILayout.EndVertical(); 
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
         
-        if (buttonRemove)
-        {
-            Remove();
-            RemoveRoad();
-        }
+        GUILayout.EndHorizontal();
 
-        if (buttonProduce)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                CreateObject();
-                CreateRoadObject();
-            }
-        }
-
-        if (buttonUp)
+        if (buttonUp || buttonDown || buttonLeft || buttonRight)
         {
             ResetInvertsAndActives();
-            for (int i = 0; i < count; i++)
+            if (buttonUp)
             {
                 isActiveAxisZ = true;
-                CreateObject();
-                CreateRoadObject();
             }
-        }
-        else if (buttonDown)
-        {
-            ResetInvertsAndActives();
-            for (int i = 0; i < count; i++)
+            else if (buttonDown)
             {
                 isActiveAxisZ = true;
                 isInvertZ = true;
-                CreateObject();
-                CreateRoadObject();
             }
-        }
-        else if (buttonLeft)
-        {
-            ResetInvertsAndActives();
-            for (int i = 0; i < count; i++)
+            else if (buttonLeft)
             {
                 isActiveAxisX = true;
                 isInvertX = true;
-                CreateObject();
-                CreateRoadObject();
             }
-        }
-        else if (buttonRight)
-        {
-            ResetInvertsAndActives();
-            for (int i = 0; i < count; i++)
+            else if (buttonRight)
             {
                 isActiveAxisX = true;
-                CreateObject();
-                CreateRoadObject();
+            }
+            
+            for (int i = 0; i < count; i++)
+            {
+                IncreasePosition();
+                CreateStackObject();
             }
         }
-    }
-    
-    void Reset()
-    {
-        startPosition = defaultStartPosition;
-        incrementVector = defaultIncrementVector;
-        isActiveAxisX = true;
-        isActiveAxisY = false;
-        isActiveAxisZ = false;
-        isInvertX = false;
-        isInvertY = false;
-        isInvertZ = false;
+        
+        if (buttonUpEmpty || buttonDownEmpty || buttonLeftEmpty || buttonRightEmpty)
+        {
+            ResetInvertsAndActives();
+            if (buttonUpEmpty)
+            {
+                isActiveAxisZ = true;
+            }
+            else if (buttonDownEmpty)
+            {
+                isActiveAxisZ = true;
+                isInvertZ = true;
+            }
+            else if (buttonLeftEmpty)
+            {
+                isActiveAxisX = true;
+                isInvertX = true;
+            }
+            else if (buttonRightEmpty)
+            {
+                isActiveAxisX = true;
+            }
+            
+            for (int i = 0; i < count; i++)
+            {
+                IncreasePosition();
+                CreateEmptyObject();
+            }
+        }
+        
     }
 
     void Remove()
@@ -209,8 +247,15 @@ public class LevelEditor : EditorWindow
         int childCount = stackParent.transform.childCount;
         if (childCount < 1)
             return;
+
+        GameObject obj = stackParent.transform.GetChild(stackParent.transform.childCount - 1).gameObject;
         
-        DestroyImmediate(stackParent.transform.GetChild(stackParent.transform.childCount - 1).gameObject);
+        if (obj.tag.Equals("Stack"))
+        {
+            RemoveRoad();
+        }
+        
+        DestroyImmediate(obj);
         
         //Decrease Position
         if (stackParent.transform.childCount > 0)
@@ -228,9 +273,8 @@ public class LevelEditor : EditorWindow
         DestroyImmediate(roadParent.transform.GetChild(roadParent.transform.childCount - 1).gameObject);
     }
 
-    void CreateObject()
+    void CreateStackObject()
     {
-        
         GameObject myGameObject = baseStack as GameObject; // did add from Editor?
         myGameObject = PrefabUtility.InstantiatePrefab(myGameObject) as GameObject;
         
@@ -242,8 +286,15 @@ public class LevelEditor : EditorWindow
 
         if (!myGameObject)
             return;
-        
-        IncreasePosition();
+
+        CreateRoadObject();
+        myGameObject.transform.SetParent(stackParent.transform);
+        myGameObject.transform.localPosition = startPosition;
+    }
+    
+    void CreateEmptyObject()
+    {
+        GameObject myGameObject = new GameObject("Empty"); // did add from Editor?
         myGameObject.transform.SetParent(stackParent.transform);
         myGameObject.transform.localPosition = startPosition;
     }
@@ -258,9 +309,12 @@ public class LevelEditor : EditorWindow
         myGameObject.transform.SetParent(roadParent.transform);
         myGameObject.transform.localPosition = startPosition;
     }
-    
+
     void IncreasePosition()
     {
+        if (!stackParent)
+            return;
+        
         Vector3 tempIncrementVector = incrementVector;
         if (!isActiveAxisX)
             tempIncrementVector.x = 0;
@@ -279,11 +333,11 @@ public class LevelEditor : EditorWindow
         startPosition += tempIncrementVector;
     }
 
-    void SetParent()
+    void SetStackParent()
     {
         if (stackParent)
             return;
-        
+
         GameObject myParentGameObject = GameObject.Find("Stacks Parent");
 
         if (!myParentGameObject)
@@ -294,12 +348,6 @@ public class LevelEditor : EditorWindow
 
         stackParent = myParentGameObject;
         baseStackParent = myParentGameObject;
-        
-        //Set Position
-        if (stackParent.transform.childCount > 0)
-            startPosition = stackParent.transform.GetChild(stackParent.transform.childCount - 1).localPosition;
-        else
-            startPosition = defaultStartPosition;
     }
     
     void SetRoadParent()
@@ -318,6 +366,17 @@ public class LevelEditor : EditorWindow
 
         roadParent = myParentGameObject;
         baseRoadParent = myParentGameObject;
+    }
+    
+    void SetLastPosition()
+    {
+        if (!stackParent)
+            return;
+        
+        if (stackParent.transform.childCount > 0)
+            startPosition = stackParent.transform.GetChild(stackParent.transform.childCount - 1).localPosition;
+        else
+            startPosition = defaultStartPosition;
     }
     
     void ResetInvertsAndActives()
