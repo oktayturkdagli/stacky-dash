@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform playerStacks;
     [SerializeField] private float altitudeMultiplier = 0.075f;
     private Animator animator;
-    private BoxCollider boxCollider;
+    private BoxCollider playerBoxCollider;
     private bool canMove = true;
     Vector3 directionVector = Vector3.zero;
     private float currentAltitude;
@@ -17,9 +17,15 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         EventManager.current.onSwipe += OnSwipe;
+        
         animator = GetComponent<Animator>();
-        boxCollider = GetComponent<BoxCollider>();
+        playerBoxCollider = GetComponent<BoxCollider>();
         currentAltitude = transform.position.y;
+    }
+    
+    void OnDestroy()
+    {
+        EventManager.current.onSwipe -= OnSwipe;
     }
 
     void OnSwipe(string direction)
@@ -60,9 +66,9 @@ public class PlayerController : MonoBehaviour
         {
             canMove = false;
             if (directionVector.x != 0)
-                transform.DOMoveX(directionVector.x * 100, 100/speed).SetId("Movement");
+                transform.DOMoveX(directionVector.x * 100, 100/speed).SetId("Movement").SetRelative(true);
             else if (directionVector.z != 0)
-                transform.DOMoveZ(directionVector.z * 100, 100/speed).SetId("Movement");
+                transform.DOMoveZ(directionVector.z * 100, 100/speed).SetId("Movement").SetRelative(true);
         }
     }
     
@@ -70,58 +76,7 @@ public class PlayerController : MonoBehaviour
     {
         DOTween.Kill("Movement");
         Vector3 stopVector = new Vector3((float)Math.Round(transform.position.x), transform.position.y, (float)Math.Round(transform.position.z));
-        transform.DOMove(stopVector, 0.5f).OnComplete(()=>canMove = true);
-    }
-    
-    void AdjustTheColliderDirection()
-    {
-        Vector3 boxColliderLocationVector = Vector3.zero;
-        Vector3 boxColliderSizeVector = new Vector3(0.1f, 0.1f, 0.1f);
-        float location = 0.25f, size = 1f;
-        boxColliderLocationVector.y = location;
-        if (directionVector.x > 0)
-        {
-            boxColliderLocationVector.x = location;
-            boxColliderSizeVector.x = size;
-        }
-        else if (directionVector.x < 0)
-        {
-            boxColliderLocationVector.x = -location;
-            boxColliderSizeVector.x = size;
-        }
-        else if (directionVector.z > 0)
-        {
-            boxColliderLocationVector.z = location;
-            boxColliderSizeVector.z = size;
-        }
-        else if (directionVector.z < 0)
-        {
-            boxColliderLocationVector.z = -location;
-            boxColliderSizeVector.z = size;
-        }
-
-        boxCollider.center = boxColliderLocationVector;
-        boxCollider.size = boxColliderSizeVector;
-    }
-    
-    bool SendRaycastToFindRoad(Vector3 directionVector)
-    {
-        Vector3 origin = transform.position + Vector3.up + directionVector; //From the player's body
-        Vector3 direction = Vector3.down; // Downwards
-        bool isThereRoad = false;
-        RaycastHit hit;
-        
-        Debug.DrawRay(origin, direction * 500, Color.red, 3f);
-        if (Physics.Raycast(origin, direction, out hit,500))
-        {
-            GameObject obj = hit.transform.gameObject;
-            if (obj.tag.Equals("Road") || obj.tag.Equals("Stack"))
-            {
-                isThereRoad = true;
-            }
-        }
-
-        return isThereRoad;
+        transform.DOMove(stopVector, 0.05f).OnComplete(()=>canMove = true);
     }
     
     void Redirect(string whereDidItComeFrom, string routerName)
@@ -172,13 +127,64 @@ public class PlayerController : MonoBehaviour
         
         DOTween.Kill("Movement");
         Vector3 stopVector = new Vector3((float)Math.Round(transform.position.x), transform.position.y, (float)Math.Round(transform.position.z));
-        transform.DOMove(stopVector, 0.1f).OnComplete(()=>
+        transform.DOMove(stopVector, 0.05f).OnComplete(()=>
         {
             canMove = true;
             HandleMovement();
         });
         
         
+    }
+    
+    void AdjustTheColliderDirection()
+    {
+        Vector3 boxColliderLocationVector = Vector3.zero;
+        Vector3 boxColliderSizeVector = new Vector3(0.1f, 0.1f, 0.1f);
+        float location = 0.25f, size = 1f;
+        boxColliderLocationVector.y = location;
+        if (directionVector.x > 0)
+        {
+            boxColliderLocationVector.x = location;
+            boxColliderSizeVector.x = size;
+        }
+        else if (directionVector.x < 0)
+        {
+            boxColliderLocationVector.x = -location;
+            boxColliderSizeVector.x = size;
+        }
+        else if (directionVector.z > 0)
+        {
+            boxColliderLocationVector.z = location;
+            boxColliderSizeVector.z = size;
+        }
+        else if (directionVector.z < 0)
+        {
+            boxColliderLocationVector.z = -location;
+            boxColliderSizeVector.z = size;
+        }
+
+        playerBoxCollider.center = boxColliderLocationVector;
+        playerBoxCollider.size = boxColliderSizeVector;
+    }
+    
+    bool SendRaycastToFindRoad(Vector3 directionVector)
+    {
+        Vector3 origin = transform.position + Vector3.up + directionVector; //From the player's body
+        Vector3 direction = Vector3.down; // Downwards
+        bool isThereRoad = false;
+        RaycastHit hit;
+        
+        Debug.DrawRay(origin, direction * 500, Color.red, 3f);
+        if (Physics.Raycast(origin, direction, out hit,500))
+        {
+            GameObject obj = hit.transform.gameObject;
+            if (obj.tag.Equals("Road") || obj.tag.Equals("Stack"))
+            {
+                isThereRoad = true;
+            }
+        }
+
+        return isThereRoad;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -254,11 +260,39 @@ public class PlayerController : MonoBehaviour
             Redirect(whereDidItComeFrom, routerName);
         }
         
+        if (other.gameObject.tag.Equals("Magnet"))
+        {
+            if (playerStacks.childCount > 1)
+            {
+                currentAltitude -= altitudeMultiplier;
+                playerStacksCounter -= 1;
+                DOTween.Kill("Rising");
+                transform.DOMoveY(currentAltitude, 0.2f).SetRelative(false).SetId("Rising");
+                animator.SetBool("Jump", false);
+                Transform pole = other.transform;
+                Transform stack = playerStacks.GetChild(playerStacks.childCount - 1);
+                stack.gameObject.tag = "Road";
+                stack.gameObject.GetComponent<BoxCollider>().enabled = true;
+                pole.gameObject.GetComponent<BoxCollider>().enabled = false;
+                stack.parent = null;
+                stack.localEulerAngles = Vector3.zero;
+                stack.transform.position = new Vector3(pole.position.x, pole.position.y + 0.5f, pole.position.z);
+            }
+            else
+            {
+                Debug.Log("You don't have enough stack!!!");
+                StopMovement();
+            }
+        }
+        
+        if (other.gameObject.tag.Equals("Finish"))
+        {
+            Debug.Log("Finish!!!");
+            StopMovement();
+        }
+        
     }
 
-    void OnDestroy()
-    {
-        EventManager.current.onSwipe -= OnSwipe;
-    }
+    
     
 }

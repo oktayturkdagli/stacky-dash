@@ -10,6 +10,8 @@ TagManager:
   - Road
   - Pole
   - Router
+  - Magnet
+  - End Game
   layers:
   - Default
   - TransparentFX

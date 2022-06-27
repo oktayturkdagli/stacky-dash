@@ -10,6 +10,14 @@ public class GameManager : MonoBehaviour
         EventManager.current.onLoseGame += OnLoseGame;
         EventManager.current.OnStartGame();
     }
+    
+    void OnDestroy()
+    {
+        EventManager.current.onStartGame -= OnStartGame;
+        EventManager.current.onFinishGame -= OnFinishGame;
+        EventManager.current.onWinGame -= OnWinGame;
+        EventManager.current.onLoseGame -= OnLoseGame;
+    }
 
     void OnStartGame()
     {
@@ -67,11 +75,5 @@ public class GameManager : MonoBehaviour
         
     }
 
-    void OnDestroy()
-    {
-        EventManager.current.onStartGame -= OnStartGame;
-        EventManager.current.onFinishGame -= OnFinishGame;
-        EventManager.current.onWinGame -= OnWinGame;
-        EventManager.current.onLoseGame -= OnLoseGame;
-    }
+    
 }

@@ -24,6 +24,14 @@ public class UIManager : MonoBehaviour
         EventManager.current.onLoseGame += OnLoseGame;
     }
     
+    void OnDestroy()
+    {
+        EventManager.current.onStartGame -= OnStartGame;
+        EventManager.current.onFinishGame -= OnFinishGame;
+        EventManager.current.onWinGame -= OnWinGame;
+        EventManager.current.onLoseGame -= OnLoseGame;
+    }
+    
     void OnStartGame()
     {
         
@@ -84,14 +92,5 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    
 
-    void OnDestroy()
-    {
-        EventManager.current.onStartGame -= OnStartGame;
-        EventManager.current.onFinishGame -= OnFinishGame;
-        EventManager.current.onWinGame -= OnWinGame;
-        EventManager.current.onLoseGame -= OnLoseGame;
-    }
-    
 }
