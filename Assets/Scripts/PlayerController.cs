@@ -295,6 +295,7 @@ public class PlayerController : MonoBehaviour
             {
                 DOTween.Kill(transform);
                 animator.SetBool("Jump",false);
+                animator.SetBool("Dance",true);
                 EventManager.current.OnWinGame();
             }
         }
@@ -303,6 +304,7 @@ public class PlayerController : MonoBehaviour
         {
             DOTween.Kill(transform);
             animator.SetBool("Jump",false);
+            animator.SetBool("Dance",true);
             EventManager.current.OnWinGame();
         }
         
