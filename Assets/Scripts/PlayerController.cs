@@ -300,8 +300,9 @@ public class PlayerController : MonoBehaviour
         
         if (other.gameObject.tag.Equals("Finish"))
         {
-            Debug.Log("Finish!!!");
-            StopMovement();
+            DOTween.Kill(transform);
+            animator.SetBool("Jump",false);
+            EventManager.current.OnWinGame();
         }
         
     }

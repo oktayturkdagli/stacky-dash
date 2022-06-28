@@ -3,18 +3,15 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Lean.Touch;
-using System;
 using Random = UnityEngine.Random;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI winText;
-    [SerializeField] TextMeshProUGUI levelCompleteText;
-    [SerializeField] private Button nextButton;
-    [SerializeField] TextMeshProUGUI loseText;
-    [SerializeField] TextMeshProUGUI tryAgainText;
-    [SerializeField] private Button restartButton;
+    [SerializeField] Transform win;
+    [SerializeField] Transform lose;
+    
+    private Button nextButton;
+    private Button restartButton;
 
     [SerializeField] GameObject tutorial;
     [SerializeField] GameObject golds;
@@ -34,6 +31,8 @@ public class UIManager : MonoBehaviour
         EventManager.current.onCollectStack += OnCollectStack;
         
         stackTextDefaultPosition = collectStackText.transform.localPosition;
+        nextButton = win.GetChild(2).GetComponent<Button>();
+        restartButton = lose.GetChild(2).GetComponent<Button>();
         UpdateLevelBar();
         UpdateGolds();
     }
@@ -60,14 +59,17 @@ public class UIManager : MonoBehaviour
     
     void OnWinGame()
     {
-        winText.transform.gameObject.SetActive(true);
-        winText.transform.localPosition = new Vector3(transform.localPosition.x - 500, transform.position.y, transform.position.z);
-        winText.transform.DOMoveX(500, 1f).OnComplete(() =>
+        win.gameObject.SetActive(true);
+        TextMeshProUGUI celebrationText = win.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI levelCompleteText = win.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+        levelCompleteText.alpha = 0;
+        
+        celebrationText.transform.localPosition = new Vector3(transform.localPosition.x - 500, transform.position.y, transform.position.z);
+        celebrationText.transform.DOMoveX(500, 1f).OnComplete(() =>
         {
-            winText.DOFade(0f, 1f).OnComplete(() =>
+            celebrationText.DOFade(0f, 1f).OnComplete(() =>
             {
                 nextButton.transform.gameObject.SetActive(true);
-                levelCompleteText.transform.gameObject.SetActive(true);
                 levelCompleteText.DOFade(100f, 1f).OnComplete(() =>
                 {
                     EventManager.current.OnFinishGame();
@@ -78,14 +80,19 @@ public class UIManager : MonoBehaviour
     
     void OnLoseGame()
     {
-        loseText.transform.gameObject.SetActive(true);
-        loseText.transform.localPosition = new Vector3(transform.localPosition.x - 500, transform.position.y, transform.position.z);
-        loseText.transform.DOMoveX(500, 1f).OnComplete(() =>
+        lose.gameObject.SetActive(true);
+        TextMeshProUGUI consolationText = lose.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI tryAgainText = lose.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+        tryAgainText.alpha = 0;
+        
+        consolationText.transform.gameObject.SetActive(true);
+        consolationText.transform.localPosition = new Vector3(transform.localPosition.x - 500, transform.position.y, transform.position.z);
+        consolationText.transform.DOMoveX(500, 1f).OnComplete(() =>
         {
-            loseText.DOFade(0f, 1f).OnComplete(() =>
+            consolationText.DOFade(0f, 1f).OnComplete(() =>
             {
                 restartButton.transform.gameObject.SetActive(true);
-                tryAgainText.transform.gameObject.SetActive(true);
+
                 tryAgainText.DOFade(100f, 1f).OnComplete(() =>
                 {
                     EventManager.current.OnFinishGame();
@@ -137,9 +144,10 @@ public class UIManager : MonoBehaviour
         goldText.text = Random.Range(40, 120) + "G";
         bestText.text = "BEST:" + Random.Range(400, 600);
     }
-    
+
     public void OnPressNextButton()
     {
+        DOTween.KillAll();
         if (SceneManager.GetActiveScene().buildIndex + 1 <= SceneManager.sceneCount)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -152,6 +160,7 @@ public class UIManager : MonoBehaviour
     
     public void OnPressRestartButton()
     {
+        DOTween.KillAll();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

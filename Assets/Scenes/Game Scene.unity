@@ -722,7 +722,7 @@ GameObject:
   m_Component:
   - component: {fileID: 89871534}
   m_Layer: 5
-  m_Name: LevelCompleteContainer
+  m_Name: LevelComplete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -957,7 +957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &122543036
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 199097655}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnPressNextButton
         m_Mode: 1
@@ -1875,12 +1875,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7838e227bdc9146de9af3db328f5be07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winText: {fileID: 1077631088}
-  levelCompleteText: {fileID: 1830089332}
-  nextButton: {fileID: 122543037}
-  loseText: {fileID: 231305482}
-  tryAgainText: {fileID: 1855471429}
-  restartButton: {fileID: 1160037097}
+  win: {fileID: 454404567}
+  lose: {fileID: 342456425}
   tutorial: {fileID: 769524335}
   golds: {fileID: 1930994314}
   stackElements: {fileID: 159178079}
@@ -2345,12 +2341,12 @@ GameObject:
   - component: {fileID: 231305481}
   - component: {fileID: 231305482}
   m_Layer: 5
-  m_Name: LoseText
+  m_Name: ConsolationText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &231305480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2399,7 +2395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: YOU LOST!!!
+  m_text: HAPPENS!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9cbcd0ed040054844b3ba0bb53516521, type: 2}
   m_sharedMaterial: {fileID: 1317169805917991769, guid: 9cbcd0ed040054844b3ba0bb53516521, type: 2}
@@ -3016,7 +3012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &342456425
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5052,7 +5048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &454404567
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5074,7 +5070,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1080, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &464299146
 PrefabInstance:
@@ -6178,7 +6174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 623897860}
   m_Layer: 5
-  m_Name: WinContainer
+  m_Name: Celebration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9632,7 +9628,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1000616562}
   m_Layer: 5
-  m_Name: LoseContainer
+  m_Name: Consolation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10107,12 +10103,12 @@ GameObject:
   - component: {fileID: 1077631089}
   - component: {fileID: 1077631088}
   m_Layer: 5
-  m_Name: WinText
+  m_Name: CelebrationText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1077631087
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10153,7 +10149,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: YOU WON!!!
+  m_text: PERFECT!!!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9cbcd0ed040054844b3ba0bb53516521, type: 2}
   m_sharedMaterial: {fileID: 1317169805917991769, guid: 9cbcd0ed040054844b3ba0bb53516521, type: 2}
@@ -11164,7 +11160,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1160037098}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 199097655}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnPressRestartButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1160037098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14651,7 +14659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1517667984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14696,7 +14704,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 199097655}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnPressRestartButton
         m_Mode: 1
@@ -17048,7 +17056,7 @@ RectTransform:
   m_GameObject: {fileID: 1830089330}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0000167, y: 1.0000167, z: 1.0000167}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 89871534}
@@ -17088,8 +17096,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -17488,8 +17496,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
