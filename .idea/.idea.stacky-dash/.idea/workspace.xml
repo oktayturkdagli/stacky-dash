@@ -2,29 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41af71eb-863e-4f40-ba4b-2eb502c28452" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Effects/Confetti/confetti_outlined.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Effects/Confetti/confetti_outlined.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Effects/ConfettiDirectionalRainbow.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Effects/ConfettiDirectionalRainbow.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Magnet.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Magnet.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/EffectManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.stacky-dash/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.stacky-dash/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Effects/ConfettiBlastRainbow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Effects/ConfettiBlastRainbow.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Effects/DollarbillShower.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Effects/DollarbillShower.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Multiplier.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Multiplier.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Prob1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Prob1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Gate.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Gate.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Prob2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Prob2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Prob4.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Prob4.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Prob5.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Prob5.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Road.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Road.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Stack.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Stack.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game Scene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EffectManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EffectManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StackController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StackController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EffectManager.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
@@ -35,6 +22,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="2AyVJo33vqaCk9Jl0lhWBw0Mkwm" />
   <component name="ProjectLevelVcsManager">
@@ -109,7 +99,9 @@
       <workItem from="1656254485019" duration="807000" />
       <workItem from="1656255366471" duration="6617000" />
       <workItem from="1656320109444" duration="1560000" />
-      <workItem from="1656324509712" duration="776000" />
+      <workItem from="1656324509712" duration="1705000" />
+      <workItem from="1656336668553" duration="4717000" />
+      <workItem from="1656406511013" duration="2001000" />
     </task>
     <servers />
   </component>

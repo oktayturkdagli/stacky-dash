@@ -16,6 +16,8 @@ public class EventManager : MonoBehaviour
     public event Action onWinGame;
     public event Action onLoseGame;
     public event Action<string> onSwipe;
+    public event Action onCollectStack;
+    public event Action onLastDanceTriggered;
     
     //Events cannot be triggered directly from another class so they are triggered via functions
     public void OnStartGame()
@@ -43,5 +45,14 @@ public class EventManager : MonoBehaviour
         onSwipe?.Invoke(direction);
     }
     
+    public void OnCollectStack()
+    {
+        onCollectStack?.Invoke();
+    }
+    
+    public void OnLastDanceTriggered()
+    {
+        onLastDanceTriggered?.Invoke();
+    }
 }
 

@@ -2,27 +2,20 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private bool isFirstSwipe = true;
+    
     void Start()
     {
-        EventManager.current.onStartGame += OnStartGame;
         EventManager.current.onFinishGame += OnFinishGame;
         EventManager.current.onWinGame += OnWinGame;
         EventManager.current.onLoseGame += OnLoseGame;
-        EventManager.current.OnStartGame();
     }
     
     void OnDestroy()
     {
-        EventManager.current.onStartGame -= OnStartGame;
         EventManager.current.onFinishGame -= OnFinishGame;
         EventManager.current.onWinGame -= OnWinGame;
         EventManager.current.onLoseGame -= OnLoseGame;
-    }
-
-    void OnStartGame()
-    {
-        // Debug.Log("Game is START!");
-        Invoke(nameof(LateStart), 1f); // Game starts 1 second late to wait for all classes to load correctly
     }
 
     void OnFinishGame()
@@ -39,14 +32,16 @@ public class GameManager : MonoBehaviour
     {
         
     }
-    
-    void LateStart()
-    {
-        
-    }
-    
+
     public void OnSwipe(Vector2 screenDelta)
     {
+        if (isFirstSwipe)
+        {
+            isFirstSwipe = false;
+            EventManager.current.OnStartGame();
+            return;
+        }
+        
         float x = screenDelta.x;
         float y = screenDelta.y;
         
@@ -74,6 +69,5 @@ public class GameManager : MonoBehaviour
         }
         
     }
-
     
 }

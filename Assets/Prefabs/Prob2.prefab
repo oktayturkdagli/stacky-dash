@@ -256,9 +256,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1897296326915282079}
+  - component: {fileID: 8100085990561863820}
   m_Layer: 0
   m_Name: Prob2
-  m_TagString: End Game
+  m_TagString: Last Dance
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -280,6 +281,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8100085990561863820
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2255625581658201913}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9, y: 2, z: 4}
+  m_Center: {x: 5.5, y: 1, z: 2}
 --- !u!1 &2605794143651324695
 GameObject:
   m_ObjectHideFlags: 0

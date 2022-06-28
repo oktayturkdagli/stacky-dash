@@ -9,13 +9,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float altitudeMultiplier = 0.075f;
     private Animator animator;
     private BoxCollider playerBoxCollider;
-    private bool canMove = true;
+    private bool canMove = false;
     Vector3 directionVector = Vector3.zero;
     private float currentAltitude;
     private int playerStacksCounter = 1;
     
     void Start()
     {
+        EventManager.current.onStartGame += OnStartGame;
         EventManager.current.onSwipe += OnSwipe;
         
         animator = GetComponent<Animator>();
@@ -25,7 +26,13 @@ public class PlayerController : MonoBehaviour
     
     void OnDestroy()
     {
+        EventManager.current.onStartGame -= OnStartGame;
         EventManager.current.onSwipe -= OnSwipe;
+    }
+
+    void OnStartGame()
+    {
+        canMove = true;
     }
 
     void OnSwipe(string direction)
@@ -76,7 +83,7 @@ public class PlayerController : MonoBehaviour
     {
         DOTween.Kill("Movement");
         Vector3 stopVector = new Vector3((float)Math.Round(transform.position.x), transform.position.y, (float)Math.Round(transform.position.z));
-        transform.DOMove(stopVector, 0.05f).OnComplete(()=>canMove = true);
+        transform.DOMove(stopVector, 0.1f).OnComplete(()=>canMove = true);
     }
     
     void Redirect(string whereDidItComeFrom, string routerName)
@@ -127,7 +134,7 @@ public class PlayerController : MonoBehaviour
         
         DOTween.Kill("Movement");
         Vector3 stopVector = new Vector3((float)Math.Round(transform.position.x), transform.position.y, (float)Math.Round(transform.position.z));
-        transform.DOMove(stopVector, 0.05f).OnComplete(()=>
+        transform.DOMove(stopVector, 0.1f).OnComplete(()=>
         {
             canMove = true;
             HandleMovement();
@@ -203,6 +210,7 @@ public class PlayerController : MonoBehaviour
             stack.localEulerAngles = Vector3.zero;
             stack.transform.localPosition = Vector3.zero;
             stack.transform.localPosition = new Vector3(stack.localPosition.x, (playerStacksCounter - 1) * -altitudeMultiplier ,stack.localPosition.z);
+            EventManager.current.OnCollectStack();
         }
         
         if (other.gameObject.tag.Equals("Gate"))
@@ -260,6 +268,11 @@ public class PlayerController : MonoBehaviour
             Redirect(whereDidItComeFrom, routerName);
         }
         
+        if (other.gameObject.tag.Equals("Last Dance"))
+        {
+            EventManager.current.OnLastDanceTriggered();
+        }
+        
         if (other.gameObject.tag.Equals("Magnet"))
         {
             if (playerStacks.childCount > 1)
@@ -292,7 +305,5 @@ public class PlayerController : MonoBehaviour
         }
         
     }
-
-    
     
 }
