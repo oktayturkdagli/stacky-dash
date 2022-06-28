@@ -293,8 +293,9 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Debug.Log("You don't have enough stack!!!");
-                StopMovement();
+                DOTween.Kill(transform);
+                animator.SetBool("Jump",false);
+                EventManager.current.OnWinGame();
             }
         }
         

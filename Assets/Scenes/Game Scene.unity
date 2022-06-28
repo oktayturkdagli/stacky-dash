@@ -1875,14 +1875,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7838e227bdc9146de9af3db328f5be07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userData: {fileID: 11400000, guid: 1e922f640bc68433c9258680d786a708, type: 2}
   win: {fileID: 454404567}
   lose: {fileID: 342456425}
-  tutorial: {fileID: 769524335}
-  golds: {fileID: 1930994314}
-  stackElements: {fileID: 159178079}
-  collectStackText: {fileID: 432056595}
-  totalStackText: {fileID: 392611255}
   levels: {fileID: 442681268}
+  golds: {fileID: 1930994314}
+  stackElements: {fileID: 159178080}
+  tutorial: {fileID: 769524335}
 --- !u!1 &204088572
 GameObject:
   m_ObjectHideFlags: 0
