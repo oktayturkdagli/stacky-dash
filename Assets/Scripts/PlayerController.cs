@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float altitudeMultiplier = 0.075f;
     private Animator animator;
     private BoxCollider playerBoxCollider;
-    private bool canMove = false;
+    private bool canMove = false, canTeleport = true, isExitTeleport = true;
     Vector3 directionVector = Vector3.zero;
     private float currentAltitude;
     private int playerStacksCounter = 1;
@@ -143,6 +143,23 @@ public class PlayerController : MonoBehaviour
         
     }
     
+    void Teleport(Vector3 teleportPoint, Vector3 destinationPoint, float altitude)
+    {
+        destinationPoint.y = 0;
+        transform.DOMove(teleportPoint, 0.1f).OnComplete(()=>
+        {
+            transform.DOMoveY(-5f, 1f).SetRelative(false).OnComplete(() =>
+            {
+                transform.position = destinationPoint;
+                transform.DOMoveY(altitude, 1f).SetRelative(false).OnComplete(() =>
+                {
+                    canMove = true;
+                    canTeleport = true;
+                });
+            });
+        });;
+    }
+    
     void AdjustTheColliderDirection()
     {
         Vector3 boxColliderLocationVector = Vector3.zero;
@@ -212,7 +229,7 @@ public class PlayerController : MonoBehaviour
             stack.transform.localPosition = new Vector3(stack.localPosition.x, (playerStacksCounter - 1) * -altitudeMultiplier ,stack.localPosition.z);
             EventManager.current.OnCollectStack();
         }
-        
+
         if (other.gameObject.tag.Equals("Gate"))
         {
             animator.SetBool("Jump", false);
@@ -268,8 +285,30 @@ public class PlayerController : MonoBehaviour
             Redirect(whereDidItComeFrom, routerName);
         }
         
+        if (other.gameObject.tag.Equals("Teleport"))
+        {
+            if (canTeleport && isExitTeleport)
+            {
+                canTeleport = false;
+                animator.SetBool("Jump", false);
+                DOTween.Kill("Rising");
+                DOTween.Kill("Movement");
+                string[] name = other.gameObject.name.Split(" ");
+                Vector3 teleportPoint = other.transform.position;
+                Vector3 destinationPoint = new Vector3(float.Parse(name[0]), float.Parse(name[1]), float.Parse(name[2]));
+                Teleport(teleportPoint, destinationPoint, currentAltitude);
+            }
+            else
+            {
+                animator.SetBool("Jump", false);
+                StopMovement();
+                isExitTeleport = false;
+            }
+        }
+        
         if (other.gameObject.tag.Equals("Last Dance"))
         {
+            speed *= 5;
             EventManager.current.OnLastDanceTriggered();
         }
         
@@ -309,5 +348,12 @@ public class PlayerController : MonoBehaviour
         }
         
     }
-    
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Teleport"))
+        {
+            isExitTeleport = true;
+        }
+    }
 }

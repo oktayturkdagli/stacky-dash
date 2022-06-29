@@ -12,6 +12,7 @@ TagManager:
   - Router
   - Magnet
   - Last Dance
+  - Teleport
   layers:
   - Default
   - TransparentFX
