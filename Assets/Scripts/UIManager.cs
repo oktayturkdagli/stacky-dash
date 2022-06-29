@@ -168,13 +168,13 @@ public class UIManager : MonoBehaviour
     public void OnPressNextButton()
     {
         int maxLevel = 0;
-        if (userData.highestLevel <= SceneManager.sceneCount)
+        if (userData.highestLevel <= SceneManager.sceneCountInBuildSettings)
             maxLevel = userData.highestLevel;
         else
-            maxLevel = SceneManager.sceneCount;
-
+            maxLevel = SceneManager.sceneCountInBuildSettings;
+        
         DOTween.KillAll();
-        if (userData.currentLevel <= maxLevel)
+        if (userData.currentLevel < maxLevel)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
