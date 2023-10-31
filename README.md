@@ -1,6 +1,5 @@
 ## 📋 Stacky Dash
 Swipe your finger to dash your hero across the mazes, stack up the tiles higher and higher and reach for the skies!
-This is a [Stacky Dash](https://apps.apple.com/us/app/stacky-dash/id1515957122) clone.
 <br/><br/>
 
 
