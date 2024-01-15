@@ -4,4 +4,5 @@ Swipe your finger to dash your hero across the mazes, stack up the tiles higher 
 
 
 ## 🖼 Project Video
-https://user-images.githubusercontent.com/61520877/178061767-d03cd3d5-e211-46be-820c-5c77fe92376a.mp4
+
+https://github.com/oktayturkdagli/stacky-dash/assets/61520877/b9412c95-b0ff-4354-9b97-150e8c5d458e
